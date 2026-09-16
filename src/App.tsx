@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+  import { useEffect, useMemo, useState } from 'react'
 import type { Day, FilterState, Session, SessionMeta, SessionMetaMap } from './types'
 import { ORIGINAL_TIMETABLE } from './data/timetable'
 import { useLocalStorage } from './hooks/useLocalStorage'
@@ -90,31 +90,6 @@ export default function App() {
     }
   }
 
-  function exportData() {
-    const payload = JSON.stringify({ sessions, meta }, null, 2)
-    const blob = new Blob([payload], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = 'mmb-timetable.json'
-    a.click()
-    URL.revokeObjectURL(url)
-  }
-
-  function importData(file: File) {
-    const reader = new FileReader()
-    reader.onload = () => {
-      try {
-        const parsed = JSON.parse(String(reader.result))
-        if (Array.isArray(parsed.sessions)) setSessions(parsed.sessions)
-        if (parsed.meta && typeof parsed.meta === 'object') setMeta(parsed.meta)
-      } catch {
-        window.alert('This file could not be read as a valid timetable export.')
-      }
-    }
-    reader.readAsText(file)
-  }
-
   const dateLabel = now.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
   const timeLabel = now.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })
 
@@ -143,8 +118,6 @@ export default function App() {
           onToggleEditMode={() => setEditMode((v) => !v)}
           onAddSession={addSession}
           onReset={resetTimetable}
-          onExport={exportData}
-          onImport={importData}
           onPrint={() => window.print()}
         />
 
@@ -205,4 +178,4 @@ export default function App() {
       )}
     </div>
   )
-}
+                                      }
