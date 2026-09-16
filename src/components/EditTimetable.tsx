@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Download, PencilLine, Plus, Printer, RotateCcw, Upload } from 'lucide-react'
+          import { useState } from 'react'
+import { PencilLine, Plus, Printer, RotateCcw } from 'lucide-react'
 import type { Day, Session } from '../types'
 import { DAYS, TIME_PERIODS } from '../data/timetable'
 
@@ -8,8 +8,6 @@ interface EditTimetableProps {
   onToggleEditMode: () => void
   onAddSession: (session: Omit<Session, 'id'>) => void
   onReset: () => void
-  onExport: () => void
-  onImport: (file: File) => void
   onPrint: () => void
 }
 
@@ -25,8 +23,6 @@ export default function EditTimetable({
   onToggleEditMode,
   onAddSession,
   onReset,
-  onExport,
-  onImport,
   onPrint,
 }: EditTimetableProps) {
   const [showForm, setShowForm] = useState(false)
@@ -86,30 +82,6 @@ export default function EditTimetable({
           <Printer size={14} />
           Print / PDF
         </button>
-
-        <button
-          type="button"
-          onClick={onExport}
-          className="flex items-center gap-1.5 rounded-lg border border-navy-200 dark:border-navy-600 px-3 py-2 text-xs font-medium text-navy-600 dark:text-navy-200 hover:bg-navy-50 dark:hover:bg-navy-700"
-        >
-          <Download size={14} />
-          Export data
-        </button>
-
-        <label className="flex items-center gap-1.5 rounded-lg border border-navy-200 dark:border-navy-600 px-3 py-2 text-xs font-medium text-navy-600 dark:text-navy-200 hover:bg-navy-50 dark:hover:bg-navy-700 cursor-pointer">
-          <Upload size={14} />
-          Import data
-          <input
-            type="file"
-            accept="application/json"
-            className="hidden"
-            onChange={(e) => {
-              const file = e.target.files?.[0]
-              if (file) onImport(file)
-              e.target.value = ''
-            }}
-          />
-        </label>
 
         <button
           type="button"
